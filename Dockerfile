@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.12.3
 
 RUN apk update && \
     apk add --no-cache pulseaudio pulseaudio-alsa alsa-plugins-pulse alsa-utils pulseaudio-utils ffmpeg sox
