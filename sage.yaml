@@ -1,6 +1,6 @@
 name: "audio-sampler"
 description: "Simple plugin which creates and uploads short audio clips."
-version : "0.0.1"
+version : "0.0.3"
 namespace: "sage"
 source:
   architectures :
