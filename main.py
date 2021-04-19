@@ -9,16 +9,24 @@ def log(*args, **kwargs):
 
 plugin.init()
 
+log("sampler started. will sample every 5m")
+
 while True:
+    time.sleep(300)
+    
     log("recording raw audio sample")
     try:
         subprocess.check_call(["arecord", "-f", "cd", "-d", "3", "-r", "44100", "-c", "1", "sample.wav"])
     except subprocess.CalledProcessError:
         log("failed to record wav. will retry")
-        time.sleep(10)
         continue
 
-    log("uploading wav file")
-    plugin.upload_file("sample.wav")
+    log("converting sample to mp3")
+    try:
+        subprocess.check_call(["ffmpeg", "-i", "sample.wav", "-ac", "1", "-acodec", "mp3", "-ab", "128k", "sample.mp3"])
+    except subprocess.CalledProcessError:
+        log("failed to convert to mp3. will retry")
+        continue
 
-    time.sleep(60)
+    log("uploading sample")
+    plugin.upload_file("sample.mp3")
