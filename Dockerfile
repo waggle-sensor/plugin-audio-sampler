@@ -8,6 +8,6 @@ COPY asound.conf /etc/asound.conf
 COPY main.py .
 
 # TODO scheduler should include this config and we should look at how to include into data discovery
-ENV PULSE_SERVER=tcp:audio-server:4713
+ENV PULSE_SERVER=tcp:wes-audio-server:4713
 
 ENTRYPOINT [ "python3", "main.py" ]
