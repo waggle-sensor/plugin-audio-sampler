@@ -23,7 +23,7 @@ while True:
 
     log("converting sample to mp3")
     try:
-        subprocess.check_call(["ffmpeg", "-i", "sample.wav", "-ac", "1", "-acodec", "mp3", "-ab", "128k", "sample.mp3"])
+        subprocess.check_call(["ffmpeg", "-y", "-i", "sample.wav", "-ac", "1", "-acodec", "mp3", "-ab", "128k", "sample.mp3"])
     except subprocess.CalledProcessError:
         log("failed to convert to mp3. will retry")
         continue
