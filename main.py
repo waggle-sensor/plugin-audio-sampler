@@ -16,7 +16,7 @@ while True:
     
     log("recording raw audio sample")
     try:
-        subprocess.check_call(["arecord", "-f", "cd", "-d", "3", "-r", "44100", "-c", "1", "sample.wav"])
+        subprocess.check_call(["arecord", "-f", "cd", "-d", "30", "-r", "44100", "-c", "1", "sample.wav"])
     except subprocess.CalledProcessError:
         log("failed to record wav. will retry")
         continue
