@@ -1,7 +1,7 @@
-FROM python:3-alpine
+FROM python:3.8
 
 # TODO see how much of this can be extracted out
-RUN apk update && apk add --no-cache pulseaudio pulseaudio-alsa alsa-plugins-pulse
+RUN apt-get update && apt-get install -y --no-cache pulseaudio ffmpeg
 COPY asound.conf /etc/asound.conf
 
 COPY requirements.txt .
