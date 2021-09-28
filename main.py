@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 import argparse
-import subprocess
 import time
-import waggle.plugin as plugin
+from waggle import plugin
+from waggle.data.audio import Microphone
 import logging
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rate", default=300, type=float, help="sampling interval in seconds")
+    parser.add_argument("--duration", default=30, type=float, help="sample duration in seconds")
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -18,26 +19,18 @@ def main():
 
     plugin.init()
 
+    mic = Microphone()
+
     logging.info("sampler started. will sample every %ss", args.rate)
 
     while True:
         time.sleep(args.rate)
         
-        logging.info("recording raw audio sample")
-        try:
-            subprocess.check_call(["arecord", "-f", "cd", "-d", "30", "-r", "44100", "-c", "1", "sample.wav"])
-        except subprocess.CalledProcessError:
-            logging.info("failed to record wav. will retry")
-            continue
-
-        logging.info("converting sample to mp3")
-        try:
-            subprocess.check_call(["ffmpeg", "-y", "-i", "sample.wav", "-ac", "1", "-acodec", "mp3", "-ab", "128k", "sample.mp3"])
-        except subprocess.CalledProcessError:
-            logging.info("failed to convert to mp3. will retry")
-            continue
-
+        logging.info("recording audio sample")
+        sample = mic.record(args.duration)
+        
         logging.info("uploading sample")
+        sample.save("sample.mp3")
         plugin.upload_file("sample.mp3")
 
 
