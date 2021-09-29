@@ -6,7 +6,7 @@ from waggle.data.audio import Microphone
 import logging
 
 
-formats = ["ogg", "wav"]
+formats = ["flac", "ogg", "wav"]
 
 def main():
     parser = argparse.ArgumentParser()
