@@ -6,8 +6,11 @@ from waggle.data.audio import Microphone
 import logging
 
 
+formats = ["ogg", "wav"]
+
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--format", default=formats[0], choices=formats, help="sample file format")
     parser.add_argument("--rate", default=300, type=float, help="sampling interval in seconds")
     parser.add_argument("--duration", default=30, type=float, help="sample duration in seconds")
     args = parser.parse_args()
@@ -30,8 +33,9 @@ def main():
         sample = mic.record(args.duration)
         
         logging.info("uploading sample")
-        sample.save("sample.mp3")
-        plugin.upload_file("sample.mp3")
+        filename = f"sample.{args.format}"
+        sample.save(filename)
+        plugin.upload_file(filename)
 
 
 if __name__ == "__main__":
