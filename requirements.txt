@@ -1,1 +1,1 @@
-waggle[audio] @ https://github.com/waggle-sensor/pywaggle/releases/download/0.46.3/waggle-0.46.3-py3-none-any.whl
+pywaggle[audio]==0.52.*
