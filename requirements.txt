@@ -1,1 +1,1 @@
-pywaggle[audio]==0.52.*
+pywaggle[audio]==0.53.*
